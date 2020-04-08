@@ -1,8 +1,10 @@
 import numpy as np
+import pandas as pd
 import scipy.sparse
 from numpy.testing import assert_array_equal
+from pandas.testing import assert_frame_equal
 
-from src.data.feature_engineering import pr
+from src.data.feature_engineering import pr, data_preprocessing
 
 
 class TestFeatureEngineering:
@@ -50,3 +52,14 @@ class TestFeatureEngineering:
     def test_fixture(self, dataset_1):
         print(dataset_1)
         assert True
+
+    def test_data_preprocessing_should_return_df_with_none_colunm(self):
+        # Given
+        df = pd.DataFrame([['', 0, 0, 1], ['', 0, 0, 0]], columns=['comment_text', 'c1', 'c2', 'c3'])
+        expected = pd.DataFrame([['', 0, 0, 1, 0], ['', 0, 0, 0, 1]],
+                                columns=['comment_text', 'c1', 'c2', 'c3', 'none'])
+        # When
+        actual, _ = data_preprocessing(df, df, ['c1', 'c2', 'c3'], 'comment_text')
+
+        # Then
+        assert_frame_equal(expected, actual)
