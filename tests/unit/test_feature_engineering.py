@@ -1,6 +1,5 @@
 import numpy as np
 import scipy.sparse
-import pandas as pd
 from numpy.testing import assert_array_equal
 
 from src.data.feature_engineering import pr

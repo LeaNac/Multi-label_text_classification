@@ -3,7 +3,6 @@ pandas
 matplotlib
 seaborn
 sklearn
-streamlit
 plotly.express
 pytest
 mock
