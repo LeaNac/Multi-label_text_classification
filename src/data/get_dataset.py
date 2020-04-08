@@ -1,7 +1,7 @@
 from pathlib import Path
 import pandas as pd
 
-TOXIC_COMMENT_DATA_PATH = Path().parent.parent.parent / 'dataset/'
+TOXIC_COMMENT_DATA_PATH = Path().parent.parent.parent / 'data/'
 
 
 def load_dataset(toxic_comment_data_path):

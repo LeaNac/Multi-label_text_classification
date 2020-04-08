@@ -4,3 +4,6 @@ matplotlib
 seaborn
 sklearn
 plotly.express
+pytest
+mock
+behave
