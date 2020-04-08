@@ -2,8 +2,9 @@ import streamlit as st
 import pandas as pd
 from pathlib import Path
 import matplotlib.pyplot as plt
+import plotly.express as px
 
-TOXIC_COMMENT_DATA_PATH = Path(__file__).parent.parent.parent / 'dataset/'
+TOXIC_COMMENT_DATA_PATH = Path(__file__).parent.parent.parent / 'data/'
 
 
 @st.cache
@@ -15,12 +16,12 @@ def load_dataset(toxic_comment_data_path):
 
 
 train_df, test_df, test_labels_df = load_dataset(TOXIC_COMMENT_DATA_PATH)
-lens = train_df.comment_text.str.len()
-lens.mean(), lens.std(), lens.max()
-st.write(lens)
+lens_df = train_df.comment_text.str.len()
+lens_df.mean(), lens_df.std(), lens_df.max()
+st.write(lens_df)
 
 st.title('Data exploration')
 st.subheader('Comments Length Histogram')
 
-fig1 = lens.hist()
-hist = st.write(fig1)
+hist = px.histogram(data_frame=lens_df, x='comment_text')
+st.write(hist)
