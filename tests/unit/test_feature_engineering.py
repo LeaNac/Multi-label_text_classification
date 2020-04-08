@@ -47,3 +47,7 @@ class TestFeatureEngineering:
         # Then
         np.array_equiv(proba_class_1, expected_proba_class_1)
         np.array_equiv(proba_class_2, expected_proba_class_2)
+
+    def test_fixture(self, dataset_1):
+        print(dataset_1)
+        assert True
