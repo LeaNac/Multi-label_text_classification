@@ -22,6 +22,8 @@ def tokenize(s):
 
 
 def TF_IDF_Vectorizer(train_df, test_df, comment, tokenize):
+    #TODO c'est pas idéal comme fonction parce que quand on aura une phrase entrée par l'utilisateur sur streamlit,
+    # il faudra simplement qu'on load le vectorizer et qu'on fasse un .transform sur cette phrase
     vec = TfidfVectorizer(ngram_range=(1, 2), tokenizer=tokenize,
                           min_df=3, max_df=0.9, strip_accents='unicode', use_idf=1,
                           smooth_idf=1, sublinear_tf=1)

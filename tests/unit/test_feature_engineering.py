@@ -4,7 +4,7 @@ import scipy.sparse
 from numpy.testing import assert_array_equal
 from pandas.testing import assert_frame_equal
 
-from src.data.feature_engineering import pr, data_preprocessing
+from src.data.feature_engineering import pr, data_preprocessing, tokenize
 
 
 class TestFeatureEngineering:
@@ -49,11 +49,22 @@ class TestFeatureEngineering:
         np.array_equiv(proba_class_1, expected_proba_class_1)
         np.array_equiv(proba_class_2, expected_proba_class_2)
 
-    def test_fixture(self, dataset_1):
-        print(dataset_1)
-        assert True
+    # def test_fixture(self, dataset_1):
+    #     print(dataset_1)
+    #     assert True
+    #
+    def test_tokenize_should_tokenize_string_into_a_cleaned_list_of_strings(self):
+        # Given
+        input_string = 'this is a sentence'
+        expected_tokenized_string = ['this', 'is', 'a', 'sentence']
 
-    def test_data_preprocessing_should_return_df_with_none_colunm(self):
+        # When
+        actual_tokenized_string = tokenize(input_string)
+
+        # Then
+        assert actual_tokenized_string == expected_tokenized_string
+
+    def test_data_preprocessing_should_return_df_with_none_column(self):
         # Given
         df = pd.DataFrame([['', 0, 0, 1], ['', 0, 0, 0]], columns=['comment_text', 'c1', 'c2', 'c3'])
         expected = pd.DataFrame([['', 0, 0, 1, 0], ['', 0, 0, 0, 1]],
