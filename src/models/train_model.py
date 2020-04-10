@@ -1,45 +1,49 @@
-import numpy as np
+from numpy import mean
 from sklearn.linear_model import LogisticRegression
-from src.data.feature_engineering import pr
+from sklearn.model_selection import cross_val_score
+
+LOGISTIC_REGRESSION_PARAMETERS = {'C': 0.1,
+                                  'max_iter': 100}
 
 
-def get_fit_mdl(x, y):
+def fit_classifier(X, y):
     y = y.values
-    r = np.log(pr(x, 1, y) / pr(x, 0, y))
-    m = LogisticRegression()
-    x_nb = x.multiply(r)
-    return m.fit(x_nb, y), r
+    classifier = LogisticRegression(**LOGISTIC_REGRESSION_PARAMETERS)
+    return classifier.fit(X, y)
 
 
-def fit_classifier_for_each_theme_and_get_its_naiveB_coef(df, train_term_doc, labels):
-    all_classifiers_and_r = []
-    for idx, theme in enumerate(labels):
-        print('fit', theme)
-        target = df[theme]
-        classifier, r = get_fit_mdl(train_term_doc, target)
-        all_classifiers_and_r.append([classifier, r])
-    return all_classifiers_and_r
+def cross_val_score_classifier(X, y):
+    classifier = LogisticRegression(**LOGISTIC_REGRESSION_PARAMETERS)
+    cv_score = mean(cross_val_score(classifier, X, y, cv=3, scoring='roc_auc'))
+    return cv_score
 
 
-def get_feature_importance_LR(labels, classifiers_and_coef):
+def compute_CV_score_for_each_class(X, y_full, labels):
+    scores = []
+    for label in labels:
+        target = y_full[label].values
+        cv_score = cross_val_score_classifier(X, target)
+        scores.append(cv_score)
+        print('CV score for class {} is {}'.format(label, cv_score))
+    return scores
+
+
+def fit_models(X, y_full, labels):
+    classifiers = {}
+    for idx, label in enumerate(labels):
+        print('fit', label)
+        target = y_full[label]
+        classifier = fit_classifier(X, target)
+        classifiers[label] = classifier
+    return classifiers
+
+
+def get_feature_importance_logistic_regression(labels, classifiers):
     feature_importance = []
-    for idx, theme in enumerate(labels):
-        classifier = classifiers_and_coef[idx][0]
+    for idx, label in enumerate(labels):
+        classifier = classifiers[idx]
         coefficients = classifier.coef_[0]
         coefficients = 100.0 * (coefficients / coefficients.max())
         feature_importance.append(coefficients)
     return feature_importance
 
-
-def get_feature_importance_LR_fois_nb_coef(labels, classifiers_and_coef):
-    feature_importance = []
-    nb_de_coef = classifiers_and_coef[0][1].shape[1]
-    for idx, theme in enumerate(labels):
-        classifier_weigths = classifiers_and_coef[idx][0].coef_[0].reshape((nb_de_coef, 1))
-        r = classifiers_and_coef[idx][1].reshape((nb_de_coef, 1))
-        weights_and_r = np.concatenate((classifier_weigths, r), axis=1)
-        weights_and_r = np.array(weights_and_r)
-        weights_and_r_multiplication = [weights_and_r[idx][0] * weights_and_r[idx][1] for idx in range(nb_de_coef)]
-        weights_and_r_multiplication = 100.0 * (weights_and_r_multiplication / max(weights_and_r_multiplication))
-        feature_importance.append(weights_and_r_multiplication)
-    return feature_importance
