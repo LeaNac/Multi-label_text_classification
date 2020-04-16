@@ -15,12 +15,12 @@ st.title('Entraînement du modèle')
 
 st.subheader("Fichier d'entraînement")
 csv_file = st.file_uploader('Drop a csv file to train on:', type=['csv'])
-train_df = pd.read_csv(csv_file)
-st.dataframe(train_df.head())
-
 if csv_file is not None:
+    train_df = pd.read_csv(csv_file)
+    st.dataframe(train_df.head())
+
     with st.spinner('Preprocessing data...'):
-        train_df = preprocess_train_df(train_df, LABELS, COMMENT_COLUMN)
+        train_df = preprocess_train_df(train_df, COMMENT_COLUMN)
         vectorizer = CountVectorizer(ngram_range=(1, 1), tokenizer=tokenize,
                                      min_df=3, max_df=0.9, strip_accents='unicode')
         trn_term_doc = vectorizer.fit_transform(train_df['comment_text'])

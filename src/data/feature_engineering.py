@@ -2,8 +2,7 @@ import re
 import string
 
 
-def preprocess_train_df(train_df, labels, comment):
-    train_df['none'] = 1 - train_df[labels].max(axis=1)
+def preprocess_train_df(train_df, comment):
     train_df[comment].fillna("unknown", inplace=True)
     return train_df
 
