@@ -23,7 +23,7 @@ if csv_file is not None:
         train_df = preprocess_train_df(train_df, COMMENT_COLUMN)
         vectorizer = CountVectorizer(ngram_range=(1, 1), tokenizer=tokenize,
                                      min_df=3, max_df=0.9, strip_accents='unicode')
-        trn_term_doc = vectorizer.fit_transform(train_df['comment_text'])
+        trn_term_doc = vectorizer.fit_transform(train_df[COMMENT_COLUMN])
         X = trn_term_doc
         y = train_df[LABELS]
         st.success('Data processed.')
