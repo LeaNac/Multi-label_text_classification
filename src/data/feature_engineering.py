@@ -1,5 +1,5 @@
-import numpy as np
-import re, string
+import re
+import string
 
 
 def preprocess_train_df(train_df, labels, comment):

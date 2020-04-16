@@ -7,4 +7,4 @@ MODELS_PATH = PROJECT_ROOT / 'models'
 
 SEED = 42
 LABELS = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
-COMMENT = 'comment_text'
+COMMENT_COLUMN = 'comment_text'
