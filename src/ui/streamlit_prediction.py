@@ -6,7 +6,7 @@ import plotly.express as px
 import streamlit as st
 
 sys.path.append('.')
-from src.models.models_interpretation import get_words_weights_df, get_global_weights
+from src.models.models_interpretation import get_local_weights_df, get_global_weights_df
 from src.models.models_predict import get_prediction
 from src.conf.global_variables import MODELS_PATH, LABELS
 from src.models.models_save_and_load import load_models
@@ -41,14 +41,14 @@ chosen_label = st.sidebar.selectbox(
 
 
 st.subheader('Interprétation de la phrase')
-df_words_weight_toxic = get_words_weights_df(vectorizer, test_term_doc, classifiers, chosen_label)
+df_words_weight_toxic = get_local_weights_df(vectorizer, test_term_doc, classifiers, chosen_label)
 fig2 = px.bar(df_words_weight_toxic,
               x='words',
               y='weights')
 words_weights_chart = st.plotly_chart(fig2)
 
 st.subheader('Interprétation globale (mots les plus $#@*)')
-df_global_weights = get_global_weights(vectorizer, classifiers, chosen_label)
+df_global_weights = get_global_weights_df(vectorizer, classifiers, chosen_label)
 fig3 = px.bar(df_global_weights.head(10),
               x='words',
               y='weights')

@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 
-def get_words_weights_df(vectorizer, test_term_doc, classifiers, label):
+def get_local_weights_df(vectorizer, test_term_doc, classifiers, label):
     words_vectorizer = vectorizer.get_feature_names()
 
     words = np.array(words_vectorizer)[test_term_doc.indices]
@@ -30,7 +30,7 @@ def odds_add_feature(odds_without_feature, weight_feature):
     return odds_without_feature * np.exp(weight_feature)
 
 
-def get_global_weights(vectorizer, classifiers, label):
+def get_global_weights_df(vectorizer, classifiers, label):
     feature_importance = classifiers[label].coef_[0]
 
     df_words_weights = pd.DataFrame({'words': vectorizer.get_feature_names(), 'weights': feature_importance})

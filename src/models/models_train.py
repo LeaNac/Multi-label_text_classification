@@ -36,14 +36,3 @@ def fit_models(X, y_full, labels):
         classifier = fit_classifier(X, target)
         classifiers[label] = classifier
     return classifiers
-
-
-def get_feature_importance_logistic_regression(labels, classifiers):
-    feature_importance = []
-    for idx, label in enumerate(labels):
-        classifier = classifiers[idx]
-        coefficients = classifier.coef_[0]
-        coefficients = 100.0 * (coefficients / coefficients.max())
-        feature_importance.append(coefficients)
-    return feature_importance
-
