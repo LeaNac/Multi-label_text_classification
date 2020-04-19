@@ -21,18 +21,32 @@ classifiers, vectorizer = load_models(models_filenames, vectorizer_filename)
 
 input_sentence = st.text_input('Entrez une phrase:')
 st.markdown("La probabilité donnée par chaque régression logistique donne des pourcentages d'appartenance à chaque classe. Il y a possibilité d'afficher les odds pour mieux comprendre comment les poids font évoluer la prédiction.")
+st.latex(r'odds=\frac{P(y=1)}{P(y=0)}')
 preds, test_term_doc = get_prediction(input_sentence, vectorizer, classifiers, LABELS)
 preds_df = pd.DataFrame({'label': LABELS, 'preds': preds[0] * 100})
-fig = px.bar(preds_df,
-             x='preds',
-             y='label',
-             color='preds',
-             range_x=[0, 100],
-             orientation='h',
-             # height=400,
-             range_color=[0, 100],
-             color_continuous_scale='Reds',
-             title="Probabilité d'appartenance au label")
+odds_df = pd.DataFrame({'label': LABELS, 'odds': preds[0]/(1-preds[0])})
+is_odds = st.checkbox('Afficher les odds', key='is_odds')
+if not is_odds:
+    fig = px.bar(preds_df,
+                 x='preds',
+                 y='label',
+                 color='preds',
+                 range_x=[0, 100],
+                 orientation='h',
+                 range_color=[0, 100],
+                 color_continuous_scale='Reds',
+                 title="Probabilité d'appartenance au label")
+else:
+    fig = px.bar(odds_df,
+                 x='odds',
+                 y='label',
+                 color='odds',
+                 #range_x=[0, 100],
+                 orientation='h',
+                 #range_color=[0, 100],
+                 color_continuous_scale='Reds',
+                 title="Odds d'appartenance au label")
+
 predictions_chart = st.plotly_chart(fig)
 
 st.title('Interprétation du modèle')
