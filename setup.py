@@ -1,8 +1,5 @@
 from setuptools import setup
 
-with open("requirements.txt", "r") as requirements_file:
-    requirements = requirements_file.read().split()
-
 setup(
     name='demo_multilabel_classification',
     version='1.0',
@@ -18,6 +15,7 @@ setup(
         'matplotlib',
         'scikit-learn',
         'plotly.express',
+        'streamlit'
     ],
     extras_require={
         'test': ['pytest',
