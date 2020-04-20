@@ -11,6 +11,5 @@ def dataset_1():
                        'obscene': [0],
                        'threat': [0],
                        'insult': [0],
-                       'identity_hate': [0],
-                       'none': [1]})
+                       'identity_hate': [0]})
     return df

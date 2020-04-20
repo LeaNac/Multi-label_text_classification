@@ -4,14 +4,23 @@ with open("requirements.txt", "r") as requirements_file:
     requirements = requirements_file.read().split()
 
 setup(
-    name='Multi-label_text_classification',
-    version='0.0.1',
+    name='demo_multilabel_classification',
+    version='1.0',
     packages=['src'],
-    package_dir={"text_classif":"src"},
     url='',
     license='bsd',
     author='aurelien.massiot & lea.naccache',
-    author_email='',
-    description='',
-    install_requires=requirements
+    author_email='amassiot@octo.com, lnaccache@octo.com',
+    description='Demo for multilabel classification article',
+    install_requires=[
+        'numpy',
+        'pandas',
+        'matplotlib',
+        'scikit-learn',
+        'plotly.express',
+    ],
+    extras_require={
+        'test': ['pytest',
+                 'mock']
+    }
 )

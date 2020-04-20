@@ -1,11 +1,8 @@
-import sys
-
 import numpy as np
 import pandas as pd
 import streamlit as st
 from sklearn.feature_extraction.text import CountVectorizer
 
-sys.path.append('.')
 from src.models.models_save_and_load import save_models
 from src.models.models_train import fit_all_classifiers, compute_CV_score_for_each_class
 from src.conf.global_variables import LABELS, COMMENT_COLUMN
