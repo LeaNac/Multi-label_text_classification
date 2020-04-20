@@ -13,7 +13,7 @@ def save_models(models, vectorizer):
 def load_models(models_filenames, vectorizer_filename):
     all_loaded_models = {}
     for idx, filename in enumerate(models_filenames):
-        model_class = models_filenames[idx].split('/')[1].split('.')[0].split('model_')[1]
+        model_class = models_filenames[idx].split('/')[-1].split('.')[0].split('model_')[1]
         all_loaded_models[model_class] = pickle.load(open(filename, 'rb'))
     vectorizer = pickle.load(open(vectorizer_filename, 'rb'))
     return all_loaded_models, vectorizer
