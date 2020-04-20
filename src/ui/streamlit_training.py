@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 sys.path.append('.')
 from src.models.models_save_and_load import save_models
-from src.models.models_train import fit_models, compute_CV_score_for_each_class
+from src.models.models_train import fit_all_classifiers, compute_CV_score_for_each_class
 from src.conf.global_variables import LABELS, COMMENT_COLUMN
 from src.data.feature_engineering import preprocess_train_df, tokenize
 
@@ -23,8 +23,7 @@ if csv_file is not None:
         train_df = preprocess_train_df(train_df, COMMENT_COLUMN)
         vectorizer = CountVectorizer(ngram_range=(1, 1), tokenizer=tokenize,
                                      min_df=3, max_df=0.9, strip_accents='unicode')
-        trn_term_doc = vectorizer.fit_transform(train_df[COMMENT_COLUMN])
-        X = trn_term_doc
+        X = vectorizer.fit_transform(train_df[COMMENT_COLUMN])
         y = train_df[LABELS]
         st.success('Data processed.')
 
@@ -34,6 +33,6 @@ if csv_file is not None:
         st.success(f'Mean cross-validated AUC score: {mean_cv_scores}')
 
     with st.spinner('Training models...'):
-        all_classifiers = fit_models(X, y, LABELS)
+        all_classifiers = fit_all_classifiers(X, y, LABELS)
         save_models(all_classifiers, vectorizer)
         st.success('Models trained and saved.')

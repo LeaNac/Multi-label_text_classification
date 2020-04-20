@@ -5,11 +5,8 @@ import pandas as pd
 
 
 def get_local_weights_df(vectorizer, test_term_doc, classifiers, label):
-    words_vectorizer = vectorizer.get_feature_names()
-
-    words = np.array(words_vectorizer)[test_term_doc.indices]
+    words = np.array(vectorizer.get_feature_names())[test_term_doc.indices]
     weights = classifiers[label].coef_.ravel()[test_term_doc.indices]
-
     df_words_weights = pd.DataFrame({'words': words, 'weights': weights}).sort_values(ascending=False, by='weights')
     return df_words_weights
 
@@ -32,8 +29,7 @@ def odds_add_feature(odds_without_feature, weight_feature):
 
 def get_global_weights_df(vectorizer, classifiers, label):
     feature_importance = classifiers[label].coef_[0]
-
-    df_words_weights = pd.DataFrame({'words': vectorizer.get_feature_names(), 'weights': feature_importance})
+    words = vectorizer.get_feature_names()
+    df_words_weights = pd.DataFrame({'words': words, 'weights': feature_importance})
     df_words_weights = df_words_weights.sort_values(ascending=False, by='weights')
-
     return df_words_weights

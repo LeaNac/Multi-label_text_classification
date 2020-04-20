@@ -6,10 +6,19 @@ LOGISTIC_REGRESSION_PARAMETERS = {'C': 0.1,
                                   'max_iter': 100}
 
 
-def fit_classifier(X, y):
+def fit_one_classifier(X, y):
     y = y.values
     classifier = LogisticRegression(**LOGISTIC_REGRESSION_PARAMETERS)
     return classifier.fit(X, y)
+
+def fit_all_classifiers(X, y_full, labels):
+    classifiers = {}
+    for idx, label in enumerate(labels):
+        print('fit', label)
+        target = y_full[label]
+        classifier = fit_one_classifier(X, target)
+        classifiers[label] = classifier
+    return classifiers
 
 
 def cross_val_score_classifier(X, y):
@@ -28,11 +37,4 @@ def compute_CV_score_for_each_class(X, y_full, labels):
     return scores
 
 
-def fit_models(X, y_full, labels):
-    classifiers = {}
-    for idx, label in enumerate(labels):
-        print('fit', label)
-        target = y_full[label]
-        classifier = fit_classifier(X, target)
-        classifiers[label] = classifier
-    return classifiers
+
