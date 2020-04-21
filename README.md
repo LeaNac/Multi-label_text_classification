@@ -24,7 +24,7 @@ En exécutant la commande suivante, le dashboard sera lancé sur __localhost:850
 streamlit run src/ui/streamlit_prediction.py
 ```
 
-![Web-app demo](images/demo.gif)
+![Web-app demo prediction](images/streamlit_prediction.gif)
 
 
 ## 3 - [Optionnel] : Entraînez des modèles sur votre propre dataset
