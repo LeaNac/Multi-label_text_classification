@@ -1,5 +1,6 @@
 # demo_streamlit
-Ce repository est une démonstration pour notre article de classification multilabel sur le blog d'OCTO Technology[OCTO Technology](https://lien_a_remplir)
+Ce repository est une démonstration pour notre article de classification multilabel sur le blog d'[OCTO Technology](https://lien_a_remplir).  
+Une démonstration a été déployée sur [Heroku](https://stormy-wildwood-81058.herokuapp.com/).  
 
 ## 1 - Création de l'environnement
 L'environnement est géré par Conda. Pour créer l'environnement, utilisez la commande suivante :
