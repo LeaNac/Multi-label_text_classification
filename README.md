@@ -28,7 +28,7 @@ streamlit run src/ui/streamlit_prediction.py
 
 
 ## 3 - [Optionnel] : Entraînez des modèles sur votre propre dataset
-Il y a un deuxième dashboard qui vous permettra d'entraîner les modèles sur votre propre dataset. Pour cela, le dataset doit être formaté de la même façon que le dataset Toxic Comment, à savoir qu'il doit avoir au moins une colonne de texte à utiliser comme feature et une ou plusieurs colonnes par label, indiquant si le texte appartient à ce label ou non.
+Il y a une deuxième web-app qui vous permettra d'entraîner les modèles sur votre propre dataset. Pour cela, le dataset doit être formaté de la même façon que le dataset Toxic Comment, à savoir qu'il doit avoir au moins une colonne de texte à utiliser comme feature et une ou plusieurs colonnes par label, indiquant si le texte appartient à ce label ou non.
 
 Il faut ensuite modifier les variables dans **src/conf/global_variables** pour préciser les colonnes à prédire LABELS et la colonne de texte à utiliser comme feature COMMENT_COLUMN. 
 
@@ -39,7 +39,7 @@ streamlit run src/ui/streamlit_training.py
 
 Ensuite, sélectionnez le dataset : 
 
-![Web-app demo](images/demo.gif)
+![Web-app demo training](images/streamlit_training.png)
 
 Les modèles entraînés et le vectorizer utilisé pour le bag of words seront stockés dans le répertoire **models/**.  
 Vous pouvez relancer l'autre dashboard pour utiliser vos modèles ;-).
