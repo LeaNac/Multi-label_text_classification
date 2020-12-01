@@ -1,5 +1,5 @@
 # demo_streamlit
-Ce repository est une démonstration pour notre article de classification multilabel sur le blog d'[OCTO Technology](https://lien_a_remplir).  
+Ce repository est une démonstration pour l'article de classification multilabel écrit par Léa Naccache et Aurélien Massiot sur le blog d'[OCTO Technology](https://blog.octo.com/nlp-une-classification-multilabels-simple-efficace-et-interpretable/).  
 Une démonstration a été déployée sur [Heroku](https://stormy-wildwood-81058.herokuapp.com/).  
 
 ## 1 - Création de l'environnement
